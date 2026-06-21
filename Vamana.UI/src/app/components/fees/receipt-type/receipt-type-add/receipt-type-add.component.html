@@ -1,0 +1,100 @@
+<form [formGroup]="receiptForm" class="receipt-form" (ngSubmit)="onSave()">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <!-- Receipt Type -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Receipt Type</mat-label>
+                <input matInput formControlName="receiptTypeName" required />
+                @if (receiptForm.get('receiptTypeName')?.hasError('required')) {
+                <mat-error>Receipt Type is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <!-- Receipt Code -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Receipt Code</mat-label>
+                <mat-select formControlName="receiptCodeId" required>
+                   @for (opt of lookups['receiptcode']; track opt.id) {
+                        <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                    }
+                </mat-select>
+                @if (receiptForm['receiptCodeId']?.hasError('notZero') && (receiptForm['receiptCodeId']?.touched || receiptForm['receiptCodeId'].touched)) {
+                    <mat-error>Select Receipt Code is </mat-error>
+                }
+                @if (receiptForm['receiptCodeId']?.hasError('required') && (receiptForm['receiptCodeId']?.touched || receiptForm['receiptCodeId'].touched)) {
+                    <mat-error>Receipt Code is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <!-- Receipt Belongs To -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Receipt Belongs To</mat-label>
+                <mat-select formControlName="receiptBelongsTo" required>
+                    @for (opt of lookups['receiptbelongsto']; track opt.id) {
+                        <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                    }
+                </mat-select>
+                @if (receiptForm.get('receiptBelongsTo')?.hasError('receiptBelongsTo')) {
+                    <mat-error>Receipt Belongs To is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <!-- Account No -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Account No</mat-label>
+                <input matInput formControlName="accountNo" required />
+                @if (receiptForm.get('accountNo')?.hasError('receiptBelongsTo')) {
+                    <mat-error>Account No is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 toggle-column">
+            <label class="toggle-label">Link with Accounts</label>
+            <mat-slide-toggle formControlName="linkWithAccounts"></mat-slide-toggle>
+        </div>
+        <div class="col-md-4 toggle-column">
+            <label class="toggle-label">Is Admission Receipt Type</label>
+            <mat-slide-toggle formControlName="isAdmissionType"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4 toggle-column">
+            <label class="toggle-label">Is Late Fine Applicable</label>
+            <mat-slide-toggle formControlName="isLateFineApplicable"></mat-slide-toggle>
+        </div>
+        <div class="col-md-4 toggle-column">
+            <label class="toggle-label">Show Receipt in Student Login</label>
+            <mat-slide-toggle formControlName="showInStudentLogin"></mat-slide-toggle>
+        </div>
+        <div class="col-md-4 toggle-column">
+            <label class="toggle-label">Visibility Required for Online Payment</label>
+            <mat-slide-toggle formControlName="isOnlineVisibility"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4 toggle-column">
+            <label class="toggle-label">Is Active</label>
+            <mat-slide-toggle formControlName="isActive"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="row g-3">
+        <div class="col text-end gap-2 d-flex justify-content-end">           
+            <button class="vamana-button" mat-stroked-button color="warn" type="button" (click)="onCancel()">
+                Cancel
+            </button>
+            <button class="vamana-button" mat-flat-button color="primary" type="submit" [disabled]="receiptForm.invalid">
+                Save
+            </button>
+        </div>
+    </div>
+</form>

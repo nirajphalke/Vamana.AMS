@@ -1,0 +1,31 @@
+/* filepath: src/app/components/fees/receipt-type/receipt-type-list/receipt-type-list.component.scss */
+
+/* Ensure the component host occupies the full viewport */
+:host {
+  display: block;
+  height: 100vh; /* full viewport height */
+}
+
+/* Main wrapper takes full height and uses column flex */
+.receipt-list-host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0; /* important so children can shrink in some browsers */
+}
+
+/* toolbar keeps its natural height */
+.toolbar {
+  flex: 0 0 auto;
+  padding: 12px;
+  background: transparent;
+  z-index: 1;
+}
+
+/* grid wrapper fills remaining space */
+.grid-wrapper {
+  flex: 1 1 auto;
+  min-height: 0; /* very important for flex children to allow overflow/scroll */
+  width: 100%;
+  position: relative;
+}

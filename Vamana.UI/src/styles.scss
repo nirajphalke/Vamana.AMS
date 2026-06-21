@@ -1,0 +1,94 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'scss/variables';
+
+/* fonts-icon */
+@import 'scss/fonts/fontawesome/scss/fontawesome';
+@import 'scss/fonts/feather/iconfont';
+
+@import 'scss/general';
+@import 'scss/generic';
+@import 'scss/mixins/function';
+
+/* important element */
+@import 'scss/menu/pc-footer.scss';
+@import 'scss/menu/menu-lite';
+
+/* basic elements */
+@import 'scss/theme-elements/theme-elements';
+
+/* third party modules style*/
+@import 'scss/plugins/plugins';
+
+@import 'scss/custom';
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.vamana-button {
+    border-radius: 6px !important;
+    padding: 10px !important;
+}
+
+.button-toolbar {
+    max-width: 600px;
+}
+
+.button-toolbar .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+}
+
+
+/* Add this to your global styles.css or styles.scss */
+.bd-callout {
+    padding-left: .3rem;
+    //margin-top: .25rem;
+    //margin-bottom: 1.25rem;
+    border-left: .25rem solid #e9ecef;
+    //border-left-width: .25rem;
+    //border-radius: .25rem;
+}
+
+.bd-callout-info {
+    border-left-color: #8764e7;
+}
+
+.bd-callout-warning {
+    border-left-color: #f0ad4e;
+}
+
+.bd-callout-danger {
+    border-left-color: #d9534f;
+}
+
+.bd-callout-success {
+    border-left-color: #5cb85c;
+}
+
+
+// ::ng-deep .mat-dialog-container.no-default-padding {
+//   padding: 0 !important;
+//   border-radius: 0 !important;
+//   overflow: visible !important;
+//   background: transparent !important;
+//   box-shadow: none !important;
+//   pointer-events: none !important;
+//   border: none !important;
+//   margin: 0 !important;
+//   display: contents; /* This makes the container "invisible" - only children are rendered */
+// }
+
+// ::ng-deep .mat-dialog-container.no-default-padding > * {
+//   pointer-events: auto; /* Re-enable clicks on content inside */
+// }
+
+// ::ng-deep .cdk-overlay-backdrop {
+//   background: rgba(0, 0, 0, 0.3);
+// }
+// /* END: Right side dialog styles */

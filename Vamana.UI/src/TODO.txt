@@ -1,0 +1,46 @@
+TODO
+====
+Masters Required
+Nationality
+State
+District
+City
+Gender
+School/Institute
+Degree
+Branch/Program
+Admission Through
+Admission Type
+Admission Year
+Semester
+Admission Batch
+Admission Category
+Payment Type
+Receipt Type
+Session
+Total Applicable Fees - disabled
+Scholarship Type        - Scholarship
+Scholarship Mode        - Scholarship
+FeesInstallmentType     - Fees
+
+USE [myDB]
+GO
+
+/****** Object:  Table [dbo].[ScholarshipModeMaster]    Script Date: 10/7/2025 11:04:20 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ScholarshipModeMaster]') AND type in (N'U'))
+DROP TABLE [dbo].[ScholarshipModeMaster]
+GO
+
+CREATE TABLE [dbo].[ScholarshipModeMaster] (
+    [ScholarshipModeId] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[ScholarshipModeCode] VARCHAR(128) NOT NULL UNIQUE,
+    [ActiveStatus] BIT NOT NULL DEFAULT 1,
+    [CreatedBy] INT NOT NULL,
+    [CreatedDate] DATETIME NOT NULL DEFAULT GETDATE(),
+    [ModifiedBy] INT NULL,
+    [ModifiedDate] DATETIME NULL,
+    [IPAddress] VARCHAR(64) NOT NULL,
+    [OrganizationId] INT NOT NULL,
+    [MACAddress] NVARCHAR(128) NOT NULL
+);
+

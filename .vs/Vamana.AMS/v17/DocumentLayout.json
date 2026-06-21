@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A491E7CD-15C0-2FE6-13AB-8738377DBA91}|Vamana.Api\\Vamana.AMS.Api.csproj|d:\\youngturks\\.net core projects\\vamana.ams\\vamana.ams\\vamana.api\\controllers\\masterscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A491E7CD-15C0-2FE6-13AB-8738377DBA91}|Vamana.Api\\Vamana.AMS.Api.csproj|solutionrelative:vamana.api\\controllers\\masterscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A491E7CD-15C0-2FE6-13AB-8738377DBA91}|Vamana.Api\\Vamana.AMS.Api.csproj|d:\\youngturks\\.net core projects\\vamana.ams\\vamana.ams\\vamana.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A491E7CD-15C0-2FE6-13AB-8738377DBA91}|Vamana.Api\\Vamana.AMS.Api.csproj|solutionrelative:vamana.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A491E7CD-15C0-2FE6-13AB-8738377DBA91}|Vamana.Api\\Vamana.AMS.Api.csproj|d:\\youngturks\\.net core projects\\vamana.ams\\vamana.ams\\vamana.api\\controllers\\students\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A491E7CD-15C0-2FE6-13AB-8738377DBA91}|Vamana.Api\\Vamana.AMS.Api.csproj|solutionrelative:vamana.api\\controllers\\students\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB64BE7B-5EE9-D895-4293-3A34941351BC}|Vamana.Services\\Vamana.AMS.Services.csproj|d:\\youngturks\\.net core projects\\vamana.ams\\vamana.ams\\vamana.services\\students\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB64BE7B-5EE9-D895-4293-3A34941351BC}|Vamana.Services\\Vamana.AMS.Services.csproj|solutionrelative:vamana.services\\students\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MastersController.cs",
+              "DocumentMoniker": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Api\\Controllers\\MastersController.cs",
+              "RelativeDocumentMoniker": "Vamana.Api\\Controllers\\MastersController.cs",
+              "ToolTip": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Api\\Controllers\\MastersController.cs",
+              "RelativeToolTip": "Vamana.Api\\Controllers\\MastersController.cs",
+              "ViewState": "AgIAAFADAAAAAAAAAAAlwF8DAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-23T14:09:57.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "Vamana.Api\\appsettings.json",
+              "ToolTip": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Api\\appsettings.json",
+              "RelativeToolTip": "Vamana.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-23T14:09:16.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StudentService.cs",
+              "DocumentMoniker": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Services\\Students\\StudentService.cs",
+              "RelativeDocumentMoniker": "Vamana.Services\\Students\\StudentService.cs",
+              "ToolTip": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Services\\Students\\StudentService.cs",
+              "RelativeToolTip": "Vamana.Services\\Students\\StudentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-23T14:06:49.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Api\\Controllers\\Students\\StudentController.cs",
+              "RelativeDocumentMoniker": "Vamana.Api\\Controllers\\Students\\StudentController.cs",
+              "ToolTip": "D:\\YoungTurks\\.NET Core Projects\\Vamana.AMS\\Vamana.AMS\\Vamana.Api\\Controllers\\Students\\StudentController.cs",
+              "RelativeToolTip": "Vamana.Api\\Controllers\\Students\\StudentController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-23T13:48:24.193Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

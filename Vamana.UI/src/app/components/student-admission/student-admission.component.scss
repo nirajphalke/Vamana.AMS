@@ -1,0 +1,60 @@
+// .form-container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
+// }
+
+// .row {
+//   display: grid;
+//   gap: 12px;
+//   align-items: center;
+// }
+
+// .row-3 {
+//   grid-template-columns: repeat(3, 1fr);
+// }
+
+// .row-4 {
+//   grid-template-columns: repeat(4, 1fr);
+// }
+
+.field-checkbox {
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+}
+
+.mat-form-field.field {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.gender-field {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gender-field mat-label {
+  margin-right: 8px;
+}
+
+.gender-field mat-error {
+  margin-left: 80px; /* shift error under the radio buttons */
+}
+
+mat-form-field {
+  margin-bottom: 0 !important;
+}
+
+mat-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

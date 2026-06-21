@@ -1,0 +1,23 @@
+<div class="receipt-list-host">
+    <div class="button-toolbar">
+        <button class="vamana-button" matButton="outlined" color="primary" (click)="openAddForm()">
+            <img src="../../../../../assets/images/receipt.png" alt="Add Receipt Type" height="16px" width="16px" />
+            Add Receipt Type
+        </button>
+        <button class="vamana-button" matButton="outlined" color="primary" (click)="refresh()">
+            <img src="../../../../../assets/images/receipt.png" alt="Refresh" height="16px" width="16px" />
+            Refresh
+        </button>
+    </div>
+
+    <div class="grid-wrapper">
+        <ag-grid-angular #agGrid style="height: 500px" class="ag-theme-alpine grid-fill" [columnDefs]="colDefs"
+            [defaultColDef]="defaultColDef" [rowData]="gridData" [gridOptions]="gridOptions"
+            (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+    </div>
+
+    <app-slider [title]="'Add Receipt Type'" [isOpen]="isSliderOpen" [componentType]="sliderComponent"
+        [data]="sliderData" (closed)="onSliderClosed($event)" [top]="'64px'" [height]="'400px'" [width]="'800px'">
+    </app-slider>
+</div>

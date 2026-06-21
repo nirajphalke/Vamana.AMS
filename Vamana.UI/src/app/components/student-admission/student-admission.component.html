@@ -1,0 +1,769 @@
+<div class="container-fluid">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+                <div class="bd-callout bd-callout-info">
+                    <h5>Student Details</h5>
+                </div>
+                <!-- Row 1: Student, Father, Email -->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Student Name</mat-label>
+                            <input matInput formControlName="studentName" />
+                            @if (f['studentName'].touched && f['studentName'].invalid) {
+                            <mat-error>Student Name is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Father's Name</mat-label>
+                            <input matInput formControlName="fatherName" />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Student Email</mat-label>
+                            <input matInput formControlName="studentEmailId" />
+                            @if (f['studentEmailId'].touched && f['studentEmailId'].invalid) {
+                            <mat-error>Enter a valid email</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 2: Mobile, Parent Mobile, DOB, Gender -->
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Student Mobile No.</mat-label>
+                            <input matInput formControlName="studentMobileNo" />
+                            @if (f['studentMobileNo'].touched && f['studentMobileNo'].invalid) {
+                            <mat-error>Enter a valid Student Mobile No.</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Parent Mobile No.</mat-label>
+                            <input matInput formControlName="fatherMobileNo" />
+                            @if (f['fatherMobileNo'].touched && f['fatherMobileNo'].invalid) {
+                            <mat-error>Enter a valid Parent Mobile No.</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput [matDatepicker]="dobPicker" formControlName="dob">
+                            <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #dobPicker></mat-datepicker>
+                            @if (f['dob'].touched && f['dob'].invalid) {
+                            <mat-error>Enter a valid Date of Birth</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3 d-flex flex-column justify-content-center">
+                        <label class="mb-1 fw-semibold">Gender</label>
+                        <mat-radio-group formControlName="genderId" aria-label="Gender" class="d-flex gap-3">
+                            <mat-radio-button value="1">Male</mat-radio-button>
+                            <mat-radio-button value="2">Female</mat-radio-button>
+                            <mat-radio-button value="3">Other</mat-radio-button>
+                        </mat-radio-group>
+                        @if (f['genderId'].touched && f['genderId'].invalid) {
+                        <mat-error>Select a Gender</mat-error>
+                        }
+                    </div>
+                </div>
+
+                <!-- Row 3: Nationality, State, District, City -->
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Nationality</mat-label>
+                            <mat-select formControlName="nationalityId">
+                                @for (opt of lookups['nationality']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['nationalityId']?.hasError('notZero') && (f['nationalityId']?.touched ||
+                            f['nationalityId'].touched)) {
+                            <mat-error>Select Nationality</mat-error>
+                            }
+                            @if (f['nationalityId']?.hasError('required') && (f['nationalityId']?.touched ||
+                            f['nationalityId'].touched)) {
+                            <mat-error>Nationality is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="stateId">
+                                @for (opt of lookups['state']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['stateId']?.hasError('notZero') && (f['stateId']?.touched || f['stateId'].touched)) {
+                            <mat-error>Select State</mat-error>
+                            }
+                            @if (f['stateId']?.hasError('required') && (f['stateId']?.touched || f['stateId'].touched))
+                            {
+                            <mat-error>State is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>District</mat-label>
+                            <mat-select formControlName="districtId">
+                                @for (opt of lookups['district']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['districtId']?.hasError('notZero') && (f['districtId']?.touched ||
+                            f['districtId'].touched)) {
+                            <mat-error>Select District</mat-error>
+                            }
+                            @if (f['districtId']?.hasError('required') && (f['districtId']?.touched ||
+                            f['districtId'].touched)) {
+                            <mat-error>District is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>City</mat-label>
+                            <mat-select formControlName="cityId">
+                                @for (opt of lookups['city']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['cityId']?.hasError('notZero') && (f['cityId']?.touched || f['cityId'].touched)) {
+                            <mat-error>Select City</mat-error>
+                            }
+                            @if (f['cityId']?.hasError('required') && (f['cityId']?.touched || f['cityId'].touched)) {
+                            <mat-error>City is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>School/Institute</mat-label>
+                            <mat-select formControlName="instituteId">
+                                @for (opt of lookups['institute']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['instituteId']?.hasError('notZero') && (f['instituteId']?.touched ||
+                            f['instituteId'].touched)) {
+                            <mat-error>Select School/Institute</mat-error>
+                            }
+                            @if (f['instituteId']?.hasError('required') && (f['instituteId']?.touched ||
+                            f['instituteId'].touched)) {
+                            <mat-error>School/Institute is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Degree</mat-label>
+                            <mat-select formControlName="degreeId">
+                                @for (opt of lookups['degree']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['degreeId']?.hasError('notZero') && (f['degreeId']?.touched ||
+                            f['degreeId'].touched)) {
+                            <mat-error>Select Degree</mat-error>
+                            }
+                            @if (f['degreeId']?.hasError('required') && (f['degreeId']?.touched ||
+                            f['degreeId'].touched)) {
+                            <mat-error>Degree is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Branch/Program</mat-label>
+                            <mat-select formControlName="branchId">
+                                @for (opt of lookups['branch']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['branchId']?.hasError('notZero') && (f['branchId']?.touched ||
+                            f['branchId'].touched)) {
+                            <mat-error>Select Branch</mat-error>
+                            }
+                            @if (f['branchId']?.hasError('required') && (f['branchId']?.touched ||
+                            f['branchId'].touched)) {
+                            <mat-error>Branch is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Semester</mat-label>
+                            <mat-select formControlName="semesterId">
+                                @for (opt of lookups['semester']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['semesterId']?.hasError('notZero') && (f['semesterId']?.touched ||
+                            f['semesterId'].touched)) {
+                            <mat-error>Select Semester</mat-error>
+                            }
+                            @if (f['semesterId']?.hasError('required') && (f['semesterId']?.touched ||
+                            f['semesterId'].touched)) {
+                            <mat-error>Semester is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Admission Through</mat-label>
+                            <mat-select formControlName="admissionThroughId">
+                                @for (opt of lookups['admissionthrough']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['admissionThroughId']?.hasError('notZero') && (f['admissionThroughId']?.touched ||
+                            f['admissionThroughId'].touched)) {
+                            <mat-error>Select Admission Through</mat-error>
+                            }
+                            @if (f['admissionThroughId']?.hasError('required') && (f['admissionThroughId']?.touched ||
+                            f['admissionThroughId'].touched)) {
+                            <mat-error>Admission Through is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Admission Type</mat-label>
+                            <mat-select formControlName="admissionTypeId">
+                                @for (opt of lookups['admissiontype']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['admissionTypeId']?.hasError('notZero') && (f['admissionTypeId']?.touched ||
+                            f['admissionTypeId'].touched)) {
+                            <mat-error>Select Admission Type</mat-error>
+                            }
+                            @if (f['admissionTypeId']?.hasError('required') && (f['admissionTypeId']?.touched ||
+                            f['admissionTypeId'].touched)) {
+                            <mat-error>Admission Type is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Admission Year</mat-label>
+                            <mat-select formControlName="admissionYearId">
+                                @for (opt of lookups['admissionyear']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['admissionYearId']?.hasError('notZero') && (f['admissionYearId']?.touched ||
+                            f['admissionYearId'].touched)) {
+                            <mat-error>Select Admission Year</mat-error>
+                            }
+                            @if (f['admissionYearId']?.hasError('required') && (f['admissionYearId']?.touched ||
+                            f['admissionYearId'].touched)) {
+                            <mat-error>Admission Year is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Admission Batch</mat-label>
+                            <mat-select formControlName="admissionBatchId">
+                                @for (opt of lookups['admissionbatch']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['admissionBatchId']?.hasError('notZero') && (f['admissionBatchId']?.touched ||
+                            f['admissionBatchId'].touched)) {
+                            <mat-error>Select Admission Batch</mat-error>
+                            }
+                            @if (f['admissionBatchId']?.hasError('required') && (f['admissionBatchId']?.touched ||
+                            f['admissionBatchId'].touched)) {
+                            <mat-error>Admission Batch is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Date of Entry</mat-label>
+                            <input matInput [matDatepicker]="doePicker" formControlName="doe">
+                            <mat-datepicker-toggle matIconSuffix [for]="doePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #doePicker></mat-datepicker>
+                            @if (f['doe'].touched && f['doe'].invalid) {
+                            <mat-error>Enter a valid Date of Entry</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Admission Category</mat-label>
+                            <mat-select formControlName="admissionCategoryId">
+                                <!-- lookup category or admissionCategory -->
+                                @for (opt of lookups['admissioncategory']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['admissionCategoryId']?.hasError('notZero') && (f['admissionCategoryId']?.touched ||
+                            f['admissionCategoryId'].touched)) {
+                            <mat-error>Select Admission Category</mat-error>
+                            }
+                            @if (f['admissionCategoryId']?.hasError('required') && (f['admissionCategoryId']?.touched ||
+                            f['admissionCategoryId'].touched)) {
+                            <mat-error>Admission Category is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Payment Type</mat-label>
+                            <mat-select formControlName="paymentTypeId">
+                                @for (opt of lookups['paymenttype']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['paymentTypeId']?.hasError('notZero') && (f['paymentTypeId']?.touched ||
+                            f['paymentTypeId'].touched)) {
+                            <mat-error>Select Payment Type</mat-error>
+                            }
+                            @if (f['paymentTypeId']?.hasError('required') && (f['paymentTypeId']?.touched ||
+                            f['paymentTypeId'].touched)) {
+                            <mat-error>Payment Type is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Receipt Type</mat-label>
+                            <mat-select formControlName="receiptTypeId">
+                                @for (opt of lookups['receipttype']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['receiptTypeId']?.hasError('notZero') && (f['receiptTypeId']?.touched ||
+                            f['receiptTypeId'].touched)) {
+                            <mat-error>Select Receipt Type</mat-error>
+                            }
+                            @if (f['receiptTypeId']?.hasError('required') && (f['receiptTypeId']?.touched ||
+                            f['receiptTypeId'].touched)) {
+                            <mat-error>Receipt Type is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Session</mat-label>
+                            <mat-select formControlName="seesionId">
+                                @for (opt of lookups['session']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            <!-- @if (f['sessionId']?.hasError('notZero') && (f['sessionId']?.touched || f['sessionId'].touched)) {
+                            <mat-error>Select Session</mat-error>
+                            }
+                            @if (f['seesionId']?.hasError('required') && (f['sessionId']?.touched || f['sessionId'].touched)) {
+                            <mat-error>Session is required</mat-error>
+                            } -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Application Id</mat-label>
+                            <input matInput formControlName="applicationId" />
+                            @if (f['applicationId'].touched && f['applicationId'].invalid) {
+                            <mat-error>Application Id is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Merit No.</mat-label>
+                            <input matInput formControlName="meritNo" />
+                            @if (f['meritNo'].touched && f['meritNo'].invalid) {
+                            <mat-error>Merit No. is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Score</mat-label>
+                            <input matInput formControlName="score" />
+                            @if (f['score'].touched && f['score'].invalid) {
+                            <mat-error>Score is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-40">
+                            <mat-label>Total Applicable Fees</mat-label>
+                            <input matInput formControlName="totalApplicableFees" />
+                            @if (f['totalApplicableFees'].touched && f['totalApplicableFees'].invalid) {
+                            <mat-error>Total Applicable Fees is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="bd-callout bd-callout-info">
+                    <h5>Scholarship Details</h5>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-3 d-flex flex-column justify-content-center">
+                        <label class="mb-1 fw-semibold">Scholarship</label>
+                        <mat-radio-group formControlName="isScholarship" aria-label="Scholarship" class="d-flex gap-3">
+                            <mat-radio-button value="1">Yes</mat-radio-button>
+                            <mat-radio-button value="0">No</mat-radio-button>
+                        </mat-radio-group>
+                        @if (f['isScholarship'].touched && f['isScholarship'].invalid) {
+                        <mat-error>Select Scholarship</mat-error>
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Scholarship Type</mat-label>
+                            <mat-select formControlName="scholarshipTypeId">
+                                @for (opt of lookups['scholarshiptype']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['scholarshipTypeId']?.hasError('notZero') && (f['scholarshipTypeId']?.touched ||
+                            f['scholarshipTypeId'].touched)) {
+                            <mat-error>Select Scholarship Type</mat-error>
+                            }
+                            @if (f['scholarshipTypeId']?.hasError('required') && (f['scholarshipTypeId']?.touched ||
+                            f['scholarshipTypeId'].touched)) {
+                            <mat-error>Scholarship Type is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Scholarship Mode</mat-label>
+                            <mat-select formControlName="scholarshipModeId">
+                                @for (opt of lookups['scholarshipmode']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['scholarshipModeId']?.hasError('notZero') && (f['scholarshipModeId']?.touched ||
+                            f['scholarshipModeId'].touched)) {
+                            <mat-error>Select Scholarship Mode</mat-error>
+                            }
+                            @if (f['scholarshipModeId']?.hasError('required') && (f['scholarshipModeId']?.touched ||
+                            f['scholarshipModeId'].touched)) {
+                            <mat-error>Scholarship Mode is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Scholarship Percentage</mat-label>
+                            <input matInput formControlName="scholarshipPercentage" />
+                            @if (f['scholarshipPercentage'].touched && f['scholarshipPercentage'].invalid) {
+                            <mat-error>Enter a valid Scholarship Percentage</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="bd-callout bd-callout-info">
+                    <h5>Fees Installment Details</h5>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-3 d-flex flex-column justify-content-center">
+                        <label class="mb-1 fw-semibold">Fee Installment</label>
+                        <mat-radio-group formControlName="isFeeInstallment" aria-label="isFeeInstallment"
+                            class="d-flex gap-3">
+                            <mat-radio-button value="1">Yes</mat-radio-button>
+                            <mat-radio-button value="0">No</mat-radio-button>
+                        </mat-radio-group>
+                        @if (f['isFeeInstallment'].touched && f['isFeeInstallment'].invalid) {
+                        <mat-error>Select Fee Installment</mat-error>
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Installment Type</mat-label>
+                            <mat-select formControlName="installmentTypeId">
+                                @for (opt of lookups['installmenttype']; track opt.id) {
+                                <mat-option [value]="opt.id">{{ opt.text }}</mat-option>
+                                }
+                            </mat-select>
+
+                            @if (f['installmentTypeId']?.hasError('notZero') && (f['installmentTypeId']?.touched ||
+                            f['installmentTypeId'].touched)) {
+                            <mat-error>Select Installment Type</mat-error>
+                            }
+                            @if (f['installmentTypeId']?.hasError('required') && (f['installmentTypeId']?.touched ||
+                            f['installmentTypeId'].touched)) {
+                            <mat-error>Installment Type is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>First Installment Due Date</mat-label>
+                            <input matInput [matDatepicker]="firstInstallmentPicker"
+                                formControlName="firstInstallmentDueDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="firstInstallmentPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #firstInstallmentPicker></mat-datepicker>
+                            @if (f['firstInstallmentDueDate'].touched && f['firstInstallmentDueDate'].invalid) {
+                            <mat-error>Enter a valid First Installment Due Date</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Second Installment Due Date</mat-label>
+                            <input matInput [matDatepicker]="secondInstallmentPicker"
+                                formControlName="secondInstallmentDueDate">
+                            <mat-datepicker-toggle matIconSuffix
+                                [for]="secondInstallmentPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #secondInstallmentPicker></mat-datepicker>
+                            @if (f['secondInstallmentDueDate'].touched && f['secondInstallmentDueDate'].invalid) {
+                            <mat-error>Enter a valid Second Installment Due Date</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+                <!--             isFeeInstallment: [true],
+installmentTypeId: ['', Validators.required, this.notZeroValidator],
+firstInstallmentDueDate: ['', Validators.required],
+secondInstallmentDueDate: ['', Validators.required], -->
+
+                <!-- Buttons -->
+                <div class="row mt-4">
+                    <div class="col text-end">
+                        <button mat-flat-button color="primary" type="submit">Save</button>
+                        <button mat-button type="button" (click)="studentForm.reset()">Reset</button>
+                    </div>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+<!-- <div class="row">
+    <div class="col-sm-12">
+
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-content>
+                <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="form-container">
+                    <div class="row row-3">
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Student Name</mat-label>
+                            <input matInput formControlName="studentName" />
+                            @if (f['studentName'].touched && f['studentName'].invalid) {
+                            <mat-error>Student Name is required</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Father's Name</mat-label>
+                            <input matInput formControlName="fatherName" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="emailId" />
+                            @if (f['emailId'].touched && f['emailId'].invalid) {
+                            <mat-error>Enter a valid email</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row row-4">
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Student Mobile No.</mat-label>
+                            <input matInput formControlName="mobileNo" />
+                            @if (f['mobileNo'].touched && f['mobileNo'].invalid) {
+                            <mat-error>Enter a valid Student Mobile No.</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Parent Mobile No.</mat-label>
+                            <input matInput formControlName="parentMobileNo" />
+                            @if (f['parentMobileNo'].touched && f['parentMobileNo'].invalid) {
+                            <mat-error>Enter a valid Parent Mobile No.</mat-error>
+                            }
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="dob">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <div class="field gender-field">
+                            <mat-label>Gender</mat-label>
+                            <mat-radio-group aria-label="Gender" formControlName="gender">
+                                <mat-radio-button value="1">Male</mat-radio-button>
+                                <mat-radio-button value="2">Female</mat-radio-button>
+                                <mat-radio-button value="3">Other</mat-radio-button>
+                            </mat-radio-group>
+                            @if (f['gender'].touched && f['gender'].invalid) {
+                            <mat-error>Select a Gender</mat-error>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row row-4">
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>Nationality</mat-label>
+                           <mat-select formControlName="nationalityId">
+                                @for (opt of lookups['nationality']; track opt.id) {
+                                    <mat-option [value]="opt.id">
+                                    {{ opt.text }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                            @if (f['nationalityId']?.hasError('notZero') && (f['nationalityId']?.touched || f['nationalityId'].touched)) {
+                                <mat-error>
+                                    Select Nationality
+                                </mat-error>
+                            }
+
+                            @if (f['nationalityId']?.hasError('required') && (f['nationalityId']?.touched || f['nationalityId'].touched)) {
+                                <mat-error>
+                                    Nationality is required
+                                </mat-error>
+                            }  
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row row-4">
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>State</mat-label>
+                           <mat-select formControlName="stateId">
+                                @for (opt of lookups['state']; track opt.id) {
+                                    <mat-option [value]="opt.id">
+                                    {{ opt.text }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                            @if (f['stateId']?.hasError('notZero') && (f['stateId']?.touched || f['stateId'].touched)) {
+                                <mat-error>
+                                    Select State
+                                </mat-error>
+                            }
+
+                            @if (f['stateId']?.hasError('required') && (f['stateId']?.touched || f['stateId'].touched)) {
+                                <mat-error>
+                                    State is required
+                                </mat-error>
+                            }  
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row row-4">
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>District</mat-label>
+                           <mat-select formControlName="districtId">
+                                @for (opt of lookups['district']; track opt.id) {
+                                    <mat-option [value]="opt.id">
+                                    {{ opt.text }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                            @if (f['districtId']?.hasError('notZero') && (f['districtId']?.touched || f['districtId'].touched)) {
+                                <mat-error>
+                                    Select District
+                                </mat-error>
+                            }
+
+                            @if (f['districtId']?.hasError('required') && (f['districtId']?.touched || f['districtId'].touched)) {
+                                <mat-error>
+                                    District is required
+                                </mat-error>
+                            }  
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row row-4">
+                        <mat-form-field appearance="outline" class="field">
+                            <mat-label>City</mat-label>
+                           <mat-select formControlName="cityId">
+                                @for (opt of lookups['city']; track opt.id) {
+                                    <mat-option [value]="opt.id">
+                                    {{ opt.text }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                            @if (f['cityId']?.hasError('notZero') && (f['cityId']?.touched || f['cityId'].touched)) {
+                                <mat-error>
+                                    Select City
+                                </mat-error>
+                            }
+
+                            @if (f['cityId']?.hasError('required') && (f['cityId']?.touched || f['cityId'].touched)) {
+                                <mat-error>
+                                    City is required
+                                </mat-error>
+                            }  
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="actions">
+                        <button mat-flat-button color="primary" type="submit">Save</button>
+                        <button mat-button type="button" (click)="studentForm.reset()">Reset</button>
+                    </div>
+
+                </form>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div> -->

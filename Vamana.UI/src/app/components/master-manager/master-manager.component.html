@@ -1,0 +1,212 @@
+<div class="responsive-two-columns">
+  <div>
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header style="padding-bottom: 20px">
+        <mat-card-title>Master Manager</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="w-64">
+          <mat-label>Select Master</mat-label>
+          <mat-select [(value)]="selected" (selectionChange)="selectMaster($event.value)">
+            <mat-option *ngFor="let m of masters" [value]="m">
+              {{ m.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <!-- Master form -->
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <!-- <h4>{{ selected.title }}</h4> -->
+          <ng-container *ngFor="let f of selected.fields">
+            <div *ngIf="f.visible">
+              <!-- Foreign key dropdown -->
+              <ng-container *ngIf="f.fkTo; else normalField">
+                <mat-form-field appearance="outline" class="w-64">
+                  <mat-label>{{ f.label }}</mat-label>
+                  <mat-select [formControlName]="f.name">
+                    <mat-option *ngFor="let opt of lookups[f.name]" [value]="opt.id">
+                      {{ opt.text }}
+                    </mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="form.get(f.name)?.hasError('required')">Please select {{ f.label }}</mat-error> -->
+
+                  <mat-error *ngIf="form.get(f.name)?.hasError('notZero') && (form.get(f.name)?.touched || form.touched)">
+                    Please select {{ f.label }}
+                  </mat-error>
+                  <mat-error *ngIf="form.get(f.name)?.hasError('required') && (form.get(f.name)?.touched || form.touched)">
+                    {{ f.label }} is required
+                  </mat-error>
+                </mat-form-field>
+              </ng-container>
+
+              <!-- Normal field template -->
+              <ng-template #normalField>
+                <!-- Text -->
+                <mat-form-field appearance="outline" class="w-64" *ngIf="f.type !== 'number' && f.type !== 'boolean' && f.type !== 'date'">
+                  <mat-label>{{ f.label }}</mat-label>
+                  <input matInput [formControlName]="f.name" />
+                  <mat-error *ngIf="form.get(f.name)?.hasError('required')">
+                    {{ f.label }} is required
+                  </mat-error>
+                </mat-form-field>
+
+                <!-- Number -->
+                <mat-form-field appearance="outline" class="w-64" *ngIf="f.type === 'number'">
+                  <mat-label>{{ f.label }}</mat-label>
+                  <input matInput type="number" [formControlName]="f.name" />
+                </mat-form-field>
+
+                <!-- Boolean -->
+                <mat-checkbox *ngIf="f.type === 'boolean'" [formControlName]="f.name">
+                  {{ f.label }}
+                </mat-checkbox>
+              </ng-template>
+            </div>
+          </ng-container>
+        </form>
+      </mat-card-content>
+
+      <mat-card-footer class="example-card-footer">
+        <!-- Action buttons -->
+
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+        <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+  <div>
+  <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>{{ selected.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-1">
+
+          <ng-container *ngFor="let f of selected.fields" [matColumnDef]="f.name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!f.visible">
+              {{ f.label }}
+            </th>
+            <td mat-cell *matCellDef="let item" [hidden]="!f.visible">
+              <ng-container *ngIf="f.type === 'boolean'; else notBoolean">
+                {{ item[f.name] ? 'Yes' : 'No' }}
+              </ng-container>
+              <ng-template #notBoolean>
+                {{ f.fkTo ? item[f.text] : item[f.name] }}
+              </ng-template>
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let item">
+              <button mat-icon-button color="primary" (click)="edit(item)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="remove(item)" disabled>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        
+        <!-- ag-grid example -->
+        <div style="height: 300px; width: 100%; margin-top: 16px;">
+          <ag-grid-angular
+            #agGrid
+            style="width: 100%; height: 100vh;"
+            class="ag-theme-alpine"
+            [columnDefs]="colDefs"
+            [defaultColDef]="defaultColDef"
+            [rowData]="items"
+            [gridOptions]="gridOptions"
+            (gridReady)="onGridReady($event)">
+          </ag-grid-angular>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- <div class="master-manager">
+  <h2>Master Manager</h2>
+
+ <label>Select master:
+    <select (change)="selectMaster(masters[$event.target.selectedIndex])">
+      @for (m of masters; track $index) {
+        <option [value]="$index" [id]="m.key">
+          {{ m.title }}
+        </option>
+      }
+    </select>
+  </label> -
+
+
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+  @for (f of selected.fields; track f.name) {
+    <div [hidden]="!f.visible">
+      @if (f.fkTo) {
+        <label>{{ f.label }}</label>
+        <select [formControlName]="f.name">
+          @for (opt of lookups[f.name]; track opt.id) {
+            <option [value]="opt.id">{{ opt.text }}</option>
+          }
+        </select>
+      } @else {
+        <label>{{ f.label }}</label>
+
+        @if (f.type !== 'number' && f.type !== 'boolean' && f.type !== 'date') {
+          <input [formControlName]="f.name" />
+        }
+
+        @if (f.type === 'number') {
+          <input type="number" [formControlName]="f.name" />
+        }
+
+        @if (f.type === 'boolean') {
+          <input type="checkbox" [formControlName]="f.name" />
+        }
+
+        @if (f.type === 'date') {
+          <input type="date" [formControlName]="f.name" />
+        }
+      }
+    </div>
+  }
+
+  <button type="submit">Save</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      @for (f of selected.fields; track f.name) {
+        <th [hidden]="!f.visible">{{ f.label }}</th>
+      }
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of items; track $index) {
+      <tr>
+        @for (f of selected.fields; track f.name) {
+          <td [hidden]="!f.visible">{{ item[f.name] }}</td>
+        }
+        <td>
+          <button (click)="edit(item)">Edit</button>
+          <button (click)="remove(item)">Delete</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table> -->
