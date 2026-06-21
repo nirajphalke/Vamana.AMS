@@ -108,39 +108,39 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("lookup/{master}")]
-    public async Task<IActionResult> GetLookUp([FromRoute] string master)
+    public async Task<IActionResult> GetLookUp([FromRoute] string master, bool forceRefresh)
     {
         stopwatch.Start();
         _logger.LogInformation($"GET request received for MasterController:GetLookUp for master {master}");
         var key = master.ToLowerInvariant();
         IEnumerable<object>? result = key switch
         {
-            "admissionbatch" => await _admBatchRepo.GetLookupAsync(c => new { id = c.AdmissionBatchId, text = c.AdmissionBatchName }),
-            "admissioncategory" => await _admCategoryRepo.GetLookupAsync(c => new { id = c.AdmissionCategoryId, text = c.AdmissionCategoryName }),
-            "admissionthrough" => await _admThroughRepo.GetLookupAsync(c => new { id = c.AdmissionThroughId, text = c.AdmissionThroughName }),
-            "admissiontype" => await _admTypeRepo.GetLookupAsync(c => new { id = c.AdmissionTypeId, text = c.AdmissionTypeName }),
-            "admissionyear" => await _admYearRepo.GetLookupAsync(c => new { id = c.AdmissionYearId, text = c.AdmissionYearName }),
-            "bloodgroup" => await _bloodGrpRepo.GetLookupAsync(c => new { id = c.BloodGroupId, text = c.BloodGroupName }),
-            "branch" => await _branchRepo.GetLookupAsync(c => new { id = c.BranchId, text = c.BranchCode }),
-            "caste" => await _casteRepo.GetLookupAsync(c => new { id = c.CasteId, text = c.CasteName }),
+            "admissionbatch" => await _admBatchRepo.GetLookupAsync(c => new { id = c.AdmissionBatchId, text = c.AdmissionBatchName }, forceRefresh),
+            "admissioncategory" => await _admCategoryRepo.GetLookupAsync(c => new { id = c.AdmissionCategoryId, text = c.AdmissionCategoryName }, forceRefresh),
+            "admissionthrough" => await _admThroughRepo.GetLookupAsync(c => new { id = c.AdmissionThroughId, text = c.AdmissionThroughName }, forceRefresh),
+            "admissiontype" => await _admTypeRepo.GetLookupAsync(c => new { id = c.AdmissionTypeId, text = c.AdmissionTypeName }, forceRefresh),
+            "admissionyear" => await _admYearRepo.GetLookupAsync(c => new { id = c.AdmissionYearId, text = c.AdmissionYearName }, forceRefresh),
+            "bloodgroup" => await _bloodGrpRepo.GetLookupAsync(c => new { id = c.BloodGroupId, text = c.BloodGroupName }, forceRefresh),
+            "branch" => await _branchRepo.GetLookupAsync(c => new { id = c.BranchId, text = c.BranchCode }, forceRefresh),
+            "caste" => await _casteRepo.GetLookupAsync(c => new { id = c.CasteId, text = c.CasteName } , forceRefresh ),
             //"category" => await _categoryRepo.GetLookupAsync(c => new { id = c.CategoryId, text = c.CategoryLongName }),
-            "city" => await _cityRepo.GetLookupAsync(c => new { id = c.CityId, text = c.CityName }),
-            "country" => await _countryRepo.GetLookupAsync(c => new { id = c.CountryId, text = c.CountryName }),
-            "degree" => await _degreeRepo.GetLookupAsync(c => new { id = c.DegreeId, text = c.DegreeCode }),
-            "district" => await _districtRepo.GetLookupAsync(c => new { id = c.DistrictId, text = c.DistrictName }),
-            "gender" => await _genderRepo.GetLookupAsync(c => new { id = c.GenderId, text = c.GenderName }),
-            "institute" => await _instituteRepo.GetLookupAsync(c => new { id = c.InstituteId, text = c.InstituteName }),
-            "nationality" => await _nationalityRepo.GetLookupAsync(c => new { id = c.NationalityId, text = c.NationalityName }),
-            "paymenttype" => await _paymentTypeRepo.GetLookupAsync(c => new { id = c.PaymentTypeId, text = c.PaymentTypeName }),
-            "receipttype" => await _receiptTypeRepo.GetLookupAsync(c => new { id = c.ReceiptTypeId, text = c.ReceiptTypeName }),
-            "receiptcode" => await _receiptCodeRepo.GetLookupAsync(c => new { id = c.ReceiptCodeId, text = c.ReceiptCodeName }),
-            "receiptbelongsto" => await _receiptBelongsRepo.GetLookupAsync(c => new { id = c.ReceiptBelongsToId, text = c.ReceiptBelongsToName}),
-            "scholarshipmode" => await _schModeRepo.GetLookupAsync(c => new { id = c.ScholarshipModeId, text = c.ScholarshipModeName }),
-            "scholarshiptype" => await _schTypeRepo.GetLookupAsync(c => new { id = c.ScholarshipTypeId, text = c.ScholarshipTypeName }),
-            "semester" => await _semesterRepo.GetLookupAsync(c => new { id = c.SemesterId, text = c.SemesterShortName }),
-            "session" => await _sessionRepo.GetLookupAsync(c => new { id = c.SessionId, text = c.SessionName }),
-            "state" => await _stateRepo.GetLookupAsync(c => new { id = c.StateId, text = c.StateName }),
-            "installmenttype" => await _installmentTypeRepo.GetLookupAsync(c => new { id = c.InstallmentTypeId, text = c.InstallmentTypeName}),
+            "city" => await _cityRepo.GetLookupAsync(c => new { id = c.CityId, text = c.CityName }, forceRefresh),
+            "country" => await _countryRepo.GetLookupAsync(c => new { id = c.CountryId, text = c.CountryName }, forceRefresh),
+            "degree" => await _degreeRepo.GetLookupAsync(c => new { id = c.DegreeId, text = c.DegreeCode }, forceRefresh),
+            "district" => await _districtRepo.GetLookupAsync(c => new { id = c.DistrictId, text = c.DistrictName }, forceRefresh),
+            "gender" => await _genderRepo.GetLookupAsync(c => new { id = c.GenderId, text = c.GenderName }, forceRefresh),
+            "institute" => await _instituteRepo.GetLookupAsync(c => new { id = c.InstituteId, text = c.InstituteName }, forceRefresh),
+            "nationality" => await _nationalityRepo.GetLookupAsync(c => new { id = c.NationalityId, text = c.NationalityName }, forceRefresh),
+            "paymenttype" => await _paymentTypeRepo.GetLookupAsync(c => new { id = c.PaymentTypeId, text = c.PaymentTypeName }, forceRefresh),
+            "receipttype" => await _receiptTypeRepo.GetLookupAsync(c => new { id = c.ReceiptTypeId, text = c.ReceiptTypeName }, forceRefresh),
+            "receiptcode" => await _receiptCodeRepo.GetLookupAsync(c => new { id = c.ReceiptCodeId, text = c.ReceiptCodeName }, forceRefresh),
+            "receiptbelongsto" => await _receiptBelongsRepo.GetLookupAsync(c => new { id = c.ReceiptBelongsToId, text = c.ReceiptBelongsToName}, forceRefresh),
+            "scholarshipmode" => await _schModeRepo.GetLookupAsync(c => new { id = c.ScholarshipModeId, text = c.ScholarshipModeName }, forceRefresh),
+            "scholarshiptype" => await _schTypeRepo.GetLookupAsync(c => new { id = c.ScholarshipTypeId, text = c.ScholarshipTypeName }, forceRefresh),
+            "semester" => await _semesterRepo.GetLookupAsync(c => new { id = c.SemesterId, text = c.SemesterShortName }, forceRefresh),
+            "session" => await _sessionRepo.GetLookupAsync(c => new { id = c.SessionId, text = c.SessionName }, forceRefresh),
+            "state" => await _stateRepo.GetLookupAsync(c => new { id = c.StateId, text = c.StateName }, forceRefresh),
+            "installmenttype" => await _installmentTypeRepo.GetLookupAsync(c => new { id = c.InstallmentTypeId, text = c.InstallmentTypeName}, forceRefresh),
             _ => null
         };
 
@@ -212,9 +212,9 @@ public class MasterController : ControllerBase
 
 
     [HttpGet("admissioncategory")]
-    public async Task<ActionResult<IEnumerable<AdmissionCategoryMasterModel>>> GetCategories()
+    public async Task<ActionResult<IEnumerable<AdmissionCategoryMasterModel>>> GetCategories([FromQuery] bool forceRefresh = false)
     {
-        var categories = await _admCategoryRepo.GetAllAsync();
+        var categories = await _admCategoryRepo.GetAllAsync(forceRefresh);
         var result = categories.Select(c => new CategoryMasterModel
         {
             CategoryId = c.AdmissionCategoryId,
@@ -241,7 +241,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddCategory(CategoryMasterModel category)
     {
         // Check for unique constraint violation
-        var duplicateCategory = (await _admCategoryRepo.GetAllAsync())
+        var duplicateCategory = (await _admCategoryRepo.GetAllAsync(true))
             .FirstOrDefault(c => c.AdmissionCategoryName.ToLower() == category.CategoryName.ToLower() || c.AdmissionCategoryLongName.ToLower() == category.CategoryLongName.ToLower());
 
         if (duplicateCategory != null)
@@ -276,7 +276,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateCategory = (await _admCategoryRepo.GetAllAsync())
+        var duplicateCategory = (await _admCategoryRepo.GetAllAsync(true))
             .FirstOrDefault(c =>
                 (c.AdmissionCategoryName.ToLower() == category.CategoryName.ToLower() || c.AdmissionCategoryLongName.ToLower() == category.CategoryLongName.ToLower())
                 && c.AdmissionCategoryId != id);
@@ -300,9 +300,9 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("caste")]
-    public async Task<ActionResult<IEnumerable<CasteMasterModel>>> GetCastes()
+    public async Task<ActionResult<IEnumerable<CasteMasterModel>>> GetCastes([FromQuery] bool forceRefresh = false)
     {
-        var castes = await _casteRepo.GetAllAsync();
+        var castes = await _casteRepo.GetAllAsync(forceRefresh);
 
         var result = castes
         .Cast<CasteMaster>() // since repo returns IEnumerable<T>
@@ -327,7 +327,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddCaste(CasteMasterModel caste)
     {
         // Check for unique constraint violation
-        var duplicateCaste = (await _casteRepo.GetAllAsync())
+        var duplicateCaste = (await _casteRepo.GetAllAsync(true))
             .FirstOrDefault(c =>
                 c.CasteName.ToLower() == caste.CasteName.ToLower());
 
@@ -363,7 +363,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateCaste = (await _casteRepo.GetAllAsync())
+        var duplicateCaste = (await _casteRepo.GetAllAsync(true))
             .FirstOrDefault(c =>
                 (c.CasteName.ToLower() == caste.CasteName.ToLower())
                 && c.CasteId != id);
@@ -386,8 +386,8 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("nationality")]
-    public async Task<ActionResult<IEnumerable<NationalityMasterModel>>> GetNationalities() =>
-      Ok(await _nationalityRepo.GetAllAsync());
+    public async Task<ActionResult<IEnumerable<NationalityMasterModel>>> GetNationalities([FromQuery] bool forceRefresh = false) =>
+      Ok(await _nationalityRepo.GetAllAsync(forceRefresh));
 
 
     [HttpGet("nationality/{id}")]
@@ -398,7 +398,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddNationality(NationalityMasterModel nationality)
     {
         // Check for unique constraint violation
-        var duplicateNationality = (await _nationalityRepo.GetAllAsync())
+        var duplicateNationality = (await _nationalityRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.NationalityName.ToLower() == nationality.NationalityName.ToLower());
 
@@ -434,7 +434,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateNationality = (await _nationalityRepo.GetAllAsync())
+        var duplicateNationality = (await _nationalityRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.NationalityName.ToLower() == nationality.NationalityName.ToLower())
                 && c.NationalityId != nationality.NationalityId);
@@ -455,9 +455,13 @@ public class MasterController : ControllerBase
         return NoContent();
     }
 
+    //[HttpGet("bloodGroup")]
+    //public async Task<ActionResult<IEnumerable<ReligionMasterModel>>> GetBloodGroups() =>
+    //Ok(await _bloodGrpRepo.GetAllAsync());
+
     [HttpGet("bloodGroup")]
-    public async Task<ActionResult<IEnumerable<ReligionMasterModel>>> GetBloodGroups() =>
-    Ok(await _bloodGrpRepo.GetAllAsync());
+    public async Task<ActionResult<IEnumerable<ReligionMasterModel>>> GetBloodGroups([FromQuery] bool forceRefresh = false) =>
+    Ok(await _bloodGrpRepo.GetAllAsync(forceRefresh));
 
     [HttpGet("bloodGroup/{id}")]
     public async Task<ActionResult<IEnumerable<BloodGroupMasterModel>>> GetBloodGroupById(int id) =>
@@ -467,7 +471,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddBloodGroup(BloodGroupMasterModel bloodGroup)
     {
         // Check for unique constraint violation
-        var duplicateBloodGroup = (await _bloodGrpRepo.GetAllAsync())
+        var duplicateBloodGroup = (await _bloodGrpRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.BloodGroupName.ToLower() == bloodGroup.BloodGroupName.ToLower());
 
@@ -503,7 +507,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateBloodGroup = (await _bloodGrpRepo.GetAllAsync())
+        var duplicateBloodGroup = (await _bloodGrpRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.BloodGroupName.ToLower() == bloodGroup.BloodGroupName.ToLower())
                 && c.BloodGroupId != bloodGroup.BloodGroupId);
@@ -525,8 +529,8 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("admissionBatch")]
-    public async Task<ActionResult<IEnumerable<AdmissionBatchMasterModel>>> GetAdmissionBatchs() =>
-        Ok(await _admBatchRepo.GetAllAsync());
+    public async Task<ActionResult<IEnumerable<AdmissionBatchMasterModel>>> GetAdmissionBatchs([FromQuery] bool forceRefresh = false) =>
+        Ok(await _admBatchRepo.GetAllAsync(forceRefresh));
 
     [HttpGet("admissionBatch/{id}")]
     public async Task<ActionResult<IEnumerable<AdmissionBatchMasterModel>>> GetAdmissionBatchById(int id) =>
@@ -536,7 +540,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddAdmissionBatch(AdmissionBatchMasterModel admissionBatch)
     {
         // Check for unique constraint violation
-        var duplicateAdmissionBatch = (await _admBatchRepo.GetAllAsync())
+        var duplicateAdmissionBatch = (await _admBatchRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.AdmissionBatchName.ToLower() == admissionBatch.AdmissionBatchName.ToLower());
 
@@ -572,7 +576,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateAdmissionBatch = (await _admBatchRepo.GetAllAsync())
+        var duplicateAdmissionBatch = (await _admBatchRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.AdmissionBatchName.ToLower() == admissionBatch.AdmissionBatchName.ToLower())
                 && c.AdmissionBatchId != admissionBatch.AdmissionBatchId);
@@ -594,8 +598,8 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("country")]
-    public async Task<ActionResult<IEnumerable<CountryMasterModel>>> GetCountries() =>
-        Ok(await _countryRepo.GetAllAsync());
+    public async Task<ActionResult<IEnumerable<CountryMasterModel>>> GetCountries([FromQuery] bool forceRefresh = false) =>
+        Ok(await _countryRepo.GetAllAsync(forceRefresh));
 
 
     [HttpGet("country/{id}")]
@@ -606,7 +610,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddCountry(CountryMasterModel country)
     {
         // Check for unique constraint violation
-        var duplicateCountry = (await _countryRepo.GetAllAsync())
+        var duplicateCountry = (await _countryRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.CountryName.ToLower() == country.CountryName.ToLower());
 
@@ -642,7 +646,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateCountry = (await _countryRepo.GetAllAsync())
+        var duplicateCountry = (await _countryRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.CountryName.ToLower() == country.CountryName.ToLower())
                 && c.CountryId != country.CountryId);
@@ -665,9 +669,9 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("state")]
-    public async Task<ActionResult<IEnumerable<StateMasterModel>>> GetStates()
+    public async Task<ActionResult<IEnumerable<StateMasterModel>>> GetStates([FromQuery] bool forceRefresh = false)
     {
-        var states = await _stateRepo.GetAllAsync();
+        var states = await _stateRepo.GetAllAsync(forceRefresh);
 
         var result = states
             .Cast<StateMaster>() // since repo returns IEnumerable<T>
@@ -692,7 +696,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddState(StateMasterModel state)
     {
         // Check for unique constraint violation
-        var duplicateState = (await _stateRepo.GetAllAsync())
+        var duplicateState = (await _stateRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.StateName.ToLower() == state.StateName.ToLower());
 
@@ -729,7 +733,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicateState = (await _stateRepo.GetAllAsync())
+        var duplicateState = (await _stateRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.StateName.ToLower() == state.StateName.ToLower())
                 && c.StateId != state.StateId);
@@ -753,9 +757,9 @@ public class MasterController : ControllerBase
     }
 
     [HttpGet("district")]
-    public async Task<ActionResult<IEnumerable<DistrictMasterModel>>> GetDistricts()
+    public async Task<ActionResult<IEnumerable<DistrictMasterModel>>> GetDistricts([FromQuery] bool forceRefresh = false)
     {
-        var districts = await _districtRepo.GetAllAsync();
+        var districts = await _districtRepo.GetAllAsync(forceRefresh);
 
         var result = districts
             .Cast<DistrictMaster>() // since repo returns IEnumerable<T>
@@ -780,7 +784,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddDistrict(DistrictMasterModel district)
     {
         // Check for unique constraint violation
-        var duplicateDistrict = (await _districtRepo.GetAllAsync())
+        var duplicateDistrict = (await _districtRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.DistrictName.ToLower() == district.DistrictName.ToLower());
 
@@ -817,7 +821,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicatedistrict = (await _districtRepo.GetAllAsync())
+        var duplicatedistrict = (await _districtRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.DistrictName.ToLower() == district.DistrictName.ToLower())
                 && c.DistrictId != district.DistrictId);
@@ -842,9 +846,9 @@ public class MasterController : ControllerBase
 
     //=========================================================
     [HttpGet("city")]
-    public async Task<ActionResult<IEnumerable<CityMasterModel>>> GetCities()
+    public async Task<ActionResult<IEnumerable<CityMasterModel>>> GetCities([FromQuery] bool forceRefresh = false)
     {
-        var cities = await _cityRepo.GetAllAsync();
+        var cities = await _cityRepo.GetAllAsync(forceRefresh);
 
         var result = cities
             .Cast<CityMaster>() // since repo returns IEnumerable<T>
@@ -871,7 +875,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddCity(CityMasterModel city)
     {
         // Check for unique constraint violation
-        var duplicateCity = (await _cityRepo.GetAllAsync())
+        var duplicateCity = (await _cityRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.CityName.ToLower() == city.CityName.ToLower());
 
@@ -908,7 +912,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicatecity = (await _cityRepo.GetAllAsync())
+        var duplicatecity = (await _cityRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.CityName.ToLower() == city.CityName.ToLower())
                 && c.DistrictId != city.DistrictId);
@@ -933,9 +937,9 @@ public class MasterController : ControllerBase
 
     // =======================================
     [HttpGet("receiptType")]
-    public async Task<ActionResult<IEnumerable<ReceiptTypeMasterModel>>> GetReceiptTypes()
+    public async Task<ActionResult<IEnumerable<ReceiptTypeMasterModel>>> GetReceiptTypes([FromQuery] bool forceRefresh = false)
     {
-        var data = await _receiptTypeRepo.GetAllAsync();
+        var data = await _receiptTypeRepo.GetAllAsync(forceRefresh);
 
         var result = data
             .Cast<ReceiptTypeMaster>() // since repo returns IEnumerable<T>
@@ -960,7 +964,7 @@ public class MasterController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("receiptType/{id}")]
+    [HttpGet("receiptType/{id:int}")]
     public async Task<ActionResult<IEnumerable<ReceiptTypeMasterModel>>> ReceiptTypeById(int id) =>
        Ok(await _receiptTypeRepo.GetByIdAsync(id));
 
@@ -968,7 +972,7 @@ public class MasterController : ControllerBase
     public async Task<ActionResult> AddReceiptType(ReceiptTypeMasterModel receiptTypeModel)
     {
         // Check for unique constraint violation
-        var duplicate = (await _receiptTypeRepo.GetAllAsync())
+        var duplicate = (await _receiptTypeRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 c.ReceiptTypeName.ToLower() == receiptTypeModel.ReceiptTypeName.ToLower());
 
@@ -1012,7 +1016,7 @@ public class MasterController : ControllerBase
         }
 
         // Check for unique constraint violation
-        var duplicate = (await _receiptTypeRepo.GetAllAsync())
+        var duplicate = (await _receiptTypeRepo.GetAllAsync(true))
         .FirstOrDefault(c =>
                 (c.ReceiptTypeName.ToLower() == receiptTypeModel.ReceiptTypeName.ToLower())
                 && c.ReceiptTypeId != id);

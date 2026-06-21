@@ -20,16 +20,48 @@ public class MasterRepository<T> : IMasterRepository<T> where T : class
         _cacheKey = $"Master:{typeof(T).Name}";
     }
 
-    public async Task<IEnumerable<object>> GetLookupAsync(Func<T, object> selector)
+    public async Task<IEnumerable<object>> GetLookupAsync(Func<T, object> selector, bool forceRefresh = false)
     {
-        var items = await GetAllAsync();
+        var items = await GetAllAsync(forceRefresh);
         return items.Select(selector);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    //public async Task<IEnumerable<T>> GetAllAsync()
+    //{
+    //    // Return from cache if exists
+    //    if (_cache.TryGetValue(_cacheKey, out IEnumerable<T>? cachedData))
+    //    {
+    //        return cachedData!;
+    //    }
+
+    //    IQueryable<T> query = _dbSet.AsQueryable();
+
+    //    var entityType = _context.Model.FindEntityType(typeof(T));
+    //    if (entityType != null)
+    //    {
+    //        var navigationNames = entityType.GetNavigations().Select(n => n.Name);
+    //        foreach (var navigation in navigationNames)
+    //        {
+    //            query = query.Include(navigation);
+    //        }
+    //    }
+
+    //    var result = await query.ToListAsync();
+
+    //    // Set into cache with expiration
+    //    _cache.Set(_cacheKey, result, new MemoryCacheEntryOptions
+    //    {
+    //        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+    //        SlidingExpiration = TimeSpan.FromMinutes(5)     // to be configured based on usage patterns
+    //    });
+
+    //    return result;
+    //}
+
+    public async Task<IEnumerable<T>> GetAllAsync(bool forceRefresh = false)
     {
-        // Return from cache if exists
-        if (_cache.TryGetValue(_cacheKey, out IEnumerable<T>? cachedData))
+        // Return from cache if it exists AND we are NOT forcing a refresh
+        if (!forceRefresh && _cache.TryGetValue(_cacheKey, out IEnumerable<T>? cachedData))
         {
             return cachedData!;
         }
@@ -48,11 +80,11 @@ public class MasterRepository<T> : IMasterRepository<T> where T : class
 
         var result = await query.ToListAsync();
 
-        // Set into cache with expiration
+        // Set into cache (this will overwrite the old cache if forceRefresh was true)
         _cache.Set(_cacheKey, result, new MemoryCacheEntryOptions
         {
-            AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2),
-            SlidingExpiration = TimeSpan.FromMinutes(30)
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+            SlidingExpiration = TimeSpan.FromMinutes(5)
         });
 
         return result;
@@ -80,5 +112,4 @@ public class MasterRepository<T> : IMasterRepository<T> where T : class
     {
         _cache.Remove(_cacheKey);
     }
-
 }

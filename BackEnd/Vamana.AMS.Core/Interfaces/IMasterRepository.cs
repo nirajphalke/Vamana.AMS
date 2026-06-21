@@ -1,8 +1,8 @@
 namespace Vamana.AMS.Core.Interfaces;
 public interface IMasterRepository<T> where T : class
 {
-    Task<IEnumerable<object>> GetLookupAsync(Func<T, object> selector);
-    Task<IEnumerable<T>> GetAllAsync();
+    Task<IEnumerable<object>> GetLookupAsync(Func<T, object> selector, bool forceRefresh);
+    Task<IEnumerable<T>> GetAllAsync(bool forceRefresh);
     Task<T> GetByIdAsync(object key);
     Task AddAsync(T entity);
     void Update(T entity);
