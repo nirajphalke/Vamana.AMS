@@ -1,0 +1,1 @@
+Backend generated from user's SQL schema. Replace connection string in Program.cs and run migrations.
