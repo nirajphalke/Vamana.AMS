@@ -11,8 +11,14 @@
     </div>
 
     <div class="grid-wrapper">
-        <ag-grid-angular #agGrid style="height: 500px" class="ag-theme-alpine grid-fill" [columnDefs]="colDefs"
-            [defaultColDef]="defaultColDef" [rowData]="gridData" [gridOptions]="gridOptions"
+        <ag-grid-angular #agGrid 
+            style="height: 100%" 
+            class="ag-theme-alpine grid-fill" 
+            [columnDefs]="colDefs"
+            [defaultColDef]="defaultColDef" 
+            [rowData]="gridData" 
+            [gridOptions]="gridOptions"
+            [loading]="isLoading"
             (gridReady)="onGridReady($event)">
         </ag-grid-angular>
     </div>

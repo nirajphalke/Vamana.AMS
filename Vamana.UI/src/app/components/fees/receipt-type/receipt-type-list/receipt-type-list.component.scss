@@ -1,21 +1,22 @@
 /* filepath: src/app/components/fees/receipt-type/receipt-type-list/receipt-type-list.component.scss */
 
 /* Ensure the component host occupies the full viewport */
+
 :host {
   display: block;
-  height: 100vh; /* full viewport height */
 }
 
-/* Main wrapper takes full height and uses column flex */
+/* Main wrapper takes available viewport height (subtract app header).
+   Adjust 64px if your app's top header has a different height. */
 .receipt-list-host {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100vh - 64px);
   min-height: 0; /* important so children can shrink in some browsers */
 }
 
-/* toolbar keeps its natural height */
-.toolbar {
+/* toolbar (HTML uses .button-toolbar) keeps its natural height */
+.button-toolbar {
   flex: 0 0 auto;
   padding: 12px;
   background: transparent;
@@ -28,4 +29,10 @@
   min-height: 0; /* very important for flex children to allow overflow/scroll */
   width: 100%;
   position: relative;
+}
+
+/* make ag-grid fill the grid-wrapper */
+.grid-fill {
+  height: 100%;
+  width: 100%;
 }

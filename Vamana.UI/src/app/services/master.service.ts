@@ -52,8 +52,12 @@ export class MasterService {
         return this.http.post(`${this.baseUrl}/student/add`, payload);
     }
 
-    getReceiptTypes(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.baseUrl}/master/receiptType`);
+    getReceiptTypes(forceRefresh: boolean = false): Observable<any[]> {
+        const url = forceRefresh 
+            ? `${this.baseUrl}/master/receiptType?forceRefresh=true` 
+            : `${this.baseUrl}/master/receiptType`;
+
+        return this.http.get<any[]>(url);
     }
 
     postReceiptType(payload: any) {

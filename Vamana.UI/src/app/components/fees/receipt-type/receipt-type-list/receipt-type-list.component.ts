@@ -68,6 +68,7 @@ export class ReceiptTypeListComponent implements OnInit {
     form!: FormGroup;
     editingId: number | null = null;
     displayedColumns: string[] = [];
+    isLoading:boolean = false;
 
     constructor(
         private ms: MasterService,
@@ -83,8 +84,19 @@ export class ReceiptTypeListComponent implements OnInit {
 
     // Load receipt types from the service
     private loadGridData() {
-        this.ms.getReceiptTypes().subscribe(data => {
-            this.gridData = data;
+        this.isLoading = true; 
+        //this.gridApi.setGridOption('loading', true); 
+        // this.ms.getReceiptTypes().subscribe(data => {
+        //     this.gridData = data;
+        // });
+
+        this.ms.getReceiptTypes(true).subscribe({
+            next: (data) => {
+                this.gridData = data;
+            },
+            complete: () => {
+                this.isLoading = false;
+            }
         });
     }
 
@@ -95,12 +107,12 @@ export class ReceiptTypeListComponent implements OnInit {
             { name: 'ReceiptCodeName', label: 'Receipt Code', type: 'string', visible: true },
             { name: 'ReceiptBelongsToName', label: 'Receipt Belongs To', type: 'string', visible: true },
             { name: 'AccountNo', label: 'Account No', type: 'string', visible: true },
-            { name: 'LinkWithAccounts', label: 'Link With Accounts', type: 'boolean', visible: true },
+            //{ name: 'LinkWithAccounts', label: 'Link With Accounts', type: 'boolean', visible: true },
             { name: 'IsAdmissionType', label: 'Is Admission Type', type: 'boolean', visible: true },
-            { name: 'IsLateFineApplicable', label: 'Is Late Fine Applicable', type: 'boolean', visible: true },
-            { name: 'ShowInStudentLogin', label: 'Show In Student Login', type: 'boolean', visible: true },
-            { name: 'IsOnlineVisibility', label: 'Is Online Visibility', type: 'boolean', visible: true },
-            { name: 'IsActive', label: 'Is Active', type: 'boolean', visible: true },
+            //{ name: 'IsLateFineApplicable', label: 'Is Late Fine Applicable', type: 'boolean', visible: true },
+           // { name: 'ShowInStudentLogin', label: 'Show In Student Login', type: 'boolean', visible: true },
+            //{ name: 'IsOnlineVisibility', label: 'Is Online Visibility', type: 'boolean', visible: true },
+            //{ name: 'IsActive', label: 'Is Active', type: 'boolean', visible: true },
         ];
 
         this.colDefs = gridFields
